@@ -9,6 +9,7 @@ const Title = ({ as: Comp = 'h1', children, size, className }: TitleProps) => {
         size === 'lg' && 'font-bold text-fs-700 md:text-fs-800',
         size === 'md' && 'font-bold text-fs-600',
         size === 'sm' && 'font-semibold text-fs-400',
+        className,
       )}
     >
       {children}
