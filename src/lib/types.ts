@@ -19,3 +19,17 @@ export type ParagraphProps = {
   children: React.ReactNode;
   className?: string;
 };
+
+// call to action props
+export type CallToActionProps = {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  variant?: 'default' | 'arrow';
+};
+
+// footer offers props
+export type OffersProps = {
+  title: string;
+  href: string;
+};
