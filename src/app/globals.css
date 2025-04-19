@@ -1,7 +1,9 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant hover (&:hover);
 
 @theme inline {
   --color-background: var(--background);
@@ -112,11 +114,37 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+@theme {
+  /* colors */
+  --color-brand-purple: #756aee;
+  --color-brand-white: #ffffff;
+  --color-brand-black: #151515;
+  --color-brand-gray: #969696;
+
+  /* font family */
+  --font-poppins: var(--font-poppins);
+
+  /* font sizes */
+  --text-fs-900: 6.875rem;
+  --text-fs-800: 4.5rem;
+  --text-fs-700: 2.625rem;
+  --text-fs-600: 2.25rem;
+  --text-fs-500: 2rem;
+  --text-fs-400: 1.125rem;
+  --text-fs-300: 1rem;
+  --text-fs-200: 0.875rem;
+
+  /* screens */
+  --breakpoint-lg: 60rem;
+  --breakpoint-md: 47.5rem;
+}
+
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html {
+    @apply scroll-smooth;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply min-h-screen bg-brand-white text-brand-black leading-normal tracking-normal overflow-x-hidden text-fs-200 font-poppins;
   }
 }
