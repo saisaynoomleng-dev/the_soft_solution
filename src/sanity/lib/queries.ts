@@ -13,7 +13,6 @@ export const PORTFOLIOS_QUERY = defineQuery(`*[_type == 'portfolio'
     },
     alt
   },
-  type,
  } | order(releasedIn)`);
 
 export const PORTFOLIO_QUERY = defineQuery(`*[_type == 'portfolio'
@@ -29,4 +28,5 @@ export const PORTFOLIO_QUERY = defineQuery(`*[_type == 'portfolio'
     alt
   },
   type,
+  description
  } `);

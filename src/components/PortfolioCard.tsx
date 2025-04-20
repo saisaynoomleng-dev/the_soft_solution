@@ -8,7 +8,7 @@ import { formatDate } from '@/lib/actions';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 
 const PortfolioCard = (props: NonNullable<PORTFOLIOS_QUERYResult>[number]) => {
-  const { name, slug, category, releasedIn, mainImage, type } = props;
+  const { name, slug, category, releasedIn, mainImage } = props;
   return (
     <Link
       href={`/portfolios/${slug?.current}`}

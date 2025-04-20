@@ -79,6 +79,12 @@ export const portfolioType = defineType({
       ],
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      description: 'App Detail',
+      type: 'blockContent',
+    }),
   ],
   preview: {
     select: {
