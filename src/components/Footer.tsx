@@ -42,25 +42,29 @@ const Footer = () => {
         </Paragraph>
 
         <div className="divide-y divid-y divide-brand-white/20 flex flex-col gap-3">
-          <Paragraph className="py-2">
+          <Paragraph className="py-2 flex items-center justify-between">
             <span className="text-brand-purple mr-5 uppercase font-semibold text-fs-300">
               address
             </span>
-            4730 Crystal Springs Dr, Los Angeles, CA 90027
+            <span className="text-right">
+              4730 Crystal Springs Dr, Los Angeles, CA 90027
+            </span>
           </Paragraph>
 
-          <Paragraph className="py-2">
+          <Paragraph className="py-2 flex items-center justify-between">
             <span className="text-brand-purple mr-5 uppercase font-semibold text-fs-300">
               phones
             </span>
-            +1 234 5678, +1 345 6789, +1 456 7890
+            <span className="text-right">
+              +1 234 5678, +1 345 6789, +1 456 7890
+            </span>
           </Paragraph>
 
-          <Paragraph className="py-2">
+          <Paragraph className="py-2 flex items-center justify-between">
             <span className="text-brand-purple mr-5 uppercase font-semibold text-fs-300">
               email
             </span>
-            info@thesoftsolution.com
+            <span className="text-right">info@thesoftsolution.com</span>
           </Paragraph>
         </div>
 
