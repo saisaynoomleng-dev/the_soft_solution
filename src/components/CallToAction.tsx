@@ -26,6 +26,7 @@ const CallToAction = ({
               after:transition-all after:duration-200 after:ease-out 
               after:z-0`,
         variant === 'arrow' && `bg-transparent group `,
+        className,
       )}
     >
       <span

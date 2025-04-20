@@ -160,5 +160,5 @@
 }
 
 @utility custom-divider {
-  @apply w-[80%] h-[2px] bg-brand-purple/40 mx-auto;
+  @apply w-[80%] h-[2px] bg-brand-purple/40 mx-auto my-3;
 }

@@ -68,6 +68,24 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Pricing = {
+  _id: string;
+  _type: 'pricing';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  price?: number;
+  isPopular?: boolean;
+  features?: Array<{
+    title?: string;
+    isIncluded?: boolean;
+    _type: 'feature';
+    _key: string;
+  }>;
+};
+
 export type BlockContent = Array<
   | {
       children?: Array<{
@@ -199,6 +217,7 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | Pricing
   | BlockContent
   | Portfolio
   | SanityImageCrop
@@ -239,6 +258,20 @@ export type PORTFOLIO_QUERYResult = {
   type: 'android' | 'desktop' | 'iphone' | 'web' | null;
   description: BlockContent | null;
 } | null;
+// Variable: PRICING_QUERY
+// Query: *[_type == 'pricing' && defined(slug.current)][0..3]{  name,  slug,  isPopular,  price,  features[] } | order(price)
+export type PRICING_QUERYResult = Array<{
+  name: string | null;
+  slug: Slug | null;
+  isPopular: boolean | null;
+  price: number | null;
+  features: Array<{
+    title?: string;
+    isIncluded?: boolean;
+    _type: 'feature';
+    _key: string;
+  }> | null;
+}>;
 
 // Query TypeMap
 import '@sanity/client';
@@ -246,5 +279,6 @@ declare module '@sanity/client' {
   interface SanityQueries {
     "*[_type == 'portfolio'\n && defined(slug.current)\n && (!defined($filter) || category match $filter)][0..6]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n } | order(releasedIn)": PORTFOLIOS_QUERYResult;
     "*[_type == 'portfolio'\n && slug.current == $slug][0]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n  type,\n  description\n } ": PORTFOLIO_QUERYResult;
+    "*[_type == 'pricing'\n && defined(slug.current)][0..3]{\n  name,\n  slug,\n  isPopular,\n  price,\n  features[]\n } | order(price)": PRICING_QUERYResult;
   }
 }
