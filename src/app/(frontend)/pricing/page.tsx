@@ -52,7 +52,7 @@ const PricingPage = async () => {
       <div className="grid md:grid-cols-3 gap-5 cursor-pointer">
         {pricing.map((p) => (
           <div
-            className="p-10 flex flex-col shadow-sm shadow-brand-black rounded-lg relative items-center justify-center hover:scale-[1.02] transition-transform duration-300 ease-in-out group"
+            className="p-10 flex flex-col shadow-sm shadow-brand-black rounded-lg relative items-center justify-center hover:scale-[1.02] transition-transform duration-300 ease-in-out group hover:shadow-brand-purple"
             key={p.slug?.current}
           >
             {p?.isPopular && (

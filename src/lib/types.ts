@@ -46,4 +46,10 @@ export type PortfolioFilterProps = {
   href: string;
 };
 
-//
+// NavLinks Props
+export type NavLinksProps = {
+  name: string;
+  url: string;
+  className?: string;
+  onClick: () => void;
+};
