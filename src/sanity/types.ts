@@ -68,6 +68,41 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote';
+      listItem?: 'bullet';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+      _key: string;
+    }
+>;
+
 export type Portfolio = {
   _id: string;
   _type: 'portfolio';
@@ -92,6 +127,7 @@ export type Portfolio = {
     alt?: string;
     _type: 'image';
   };
+  description?: BlockContent;
 };
 
 export type SanityImageCrop = {
@@ -163,6 +199,7 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | BlockContent
   | Portfolio
   | SanityImageCrop
   | SanityImageHotspot
@@ -173,7 +210,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PORTFOLIOS_QUERY
-// Query: *[_type == 'portfolio' && defined(slug.current) && (!defined($filter) || category match $filter)][0..6]{  name,  slug,  category,  releasedIn,  mainImage{    asset->{      url    },    alt  },  type, } | order(releasedIn)
+// Query: *[_type == 'portfolio' && defined(slug.current) && (!defined($filter) || category match $filter)][0..6]{  name,  slug,  category,  releasedIn,  mainImage{    asset->{      url    },    alt  }, } | order(releasedIn)
 export type PORTFOLIOS_QUERYResult = Array<{
   name: string | null;
   slug: Slug | null;
@@ -185,10 +222,9 @@ export type PORTFOLIOS_QUERYResult = Array<{
     } | null;
     alt: string | null;
   } | null;
-  type: 'android' | 'desktop' | 'iphone' | 'web' | null;
 }>;
 // Variable: PORTFOLIO_QUERY
-// Query: *[_type == 'portfolio' && slug.current == $slug][0]{  name,  slug,  category,  releasedIn,  mainImage{    asset->{      url    },    alt  },  type, }
+// Query: *[_type == 'portfolio' && slug.current == $slug][0]{  name,  slug,  category,  releasedIn,  mainImage{    asset->{      url    },    alt  },  type,  description }
 export type PORTFOLIO_QUERYResult = {
   name: string | null;
   slug: Slug | null;
@@ -201,13 +237,14 @@ export type PORTFOLIO_QUERYResult = {
     alt: string | null;
   } | null;
   type: 'android' | 'desktop' | 'iphone' | 'web' | null;
+  description: BlockContent | null;
 } | null;
 
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    "*[_type == 'portfolio'\n && defined(slug.current)\n && (!defined($filter) || category match $filter)][0..6]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n  type,\n } | order(releasedIn)": PORTFOLIOS_QUERYResult;
-    "*[_type == 'portfolio'\n && slug.current == $slug][0]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n  type,\n } ": PORTFOLIO_QUERYResult;
+    "*[_type == 'portfolio'\n && defined(slug.current)\n && (!defined($filter) || category match $filter)][0..6]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n } | order(releasedIn)": PORTFOLIOS_QUERYResult;
+    "*[_type == 'portfolio'\n && slug.current == $slug][0]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n  type,\n  description\n } ": PORTFOLIO_QUERYResult;
   }
 }

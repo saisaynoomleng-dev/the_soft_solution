@@ -43,12 +43,23 @@ const PortfolioPage = async ({
         >
           Our Portfolio Showcase
         </Title>
-        <Paragraph className="md:max-w-[70%] md:mx-auto first-letter:text-fs-500 first-letter:bg-brand-purple first-letter:p-1 first-letter:inline-block first-letter:mr-1 first-letter:text-brand-white">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita
-          quisquam ratione praesentium possimus dicta! Repellat iure nulla
-          sapiente perferendis, accusamus ducimus cumque, esse dolorum
-          reiciendis eius exercitationem a odio molestiae.
-        </Paragraph>
+        <div className="md:max-w-[70%] md:mx-auto flex flex-col gap-3 text-justify">
+          <Paragraph className="first-letter:text-fs-500 first-letter:bg-brand-purple first-letter:p-1 first-letter:inline-block first-letter:mr-1 first-letter:text-brand-white indent-7">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita
+            quisquam ratione praesentium possimus dicta! Repellat iure nulla
+            sapiente perferendis, accusamus ducimus cumque, esse dolorum
+            reiciendis eius exercitationem a odio molestiae.
+          </Paragraph>
+          <Paragraph>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit,
+            itaque?
+          </Paragraph>
+          <Paragraph>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro ipsa
+            nostrum distinctio ad provident perspiciatis eveniet sapiente
+            officia, voluptatem ab?
+          </Paragraph>
+        </div>
       </div>
 
       <div className="space-y-5">
