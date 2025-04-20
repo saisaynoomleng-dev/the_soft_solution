@@ -162,3 +162,11 @@
 @utility custom-divider {
   @apply w-[80%] h-[2px] bg-brand-purple/40 mx-auto my-3;
 }
+
+@utility form-label {
+  @apply after:content-['*'] after:text-red-700;
+}
+
+@utility form-input {
+  @apply min-w-full border-b border-b-brand-purple indent-2 focus-visible:ring-[3px] focus-visible:ring-brand-purple py-2 outline-none focus-visible:border-none placeholder:text-fs-200;
+}
