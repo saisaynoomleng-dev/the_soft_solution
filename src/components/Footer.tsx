@@ -180,8 +180,8 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="col-span-full py-5 flex justify-center items-center bg-brand-white font-bold tracking-wide">
-        <Paragraph className="text-brand-gray">
+      <div className="col-span-full place-self-end">
+        <Paragraph className="text-brand-gray font-bold text-fs-200">
           &copy; {new Date().getFullYear()} The Soft Solution. All rights
           reserved. Privacy Policy.
         </Paragraph>

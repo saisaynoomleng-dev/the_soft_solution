@@ -33,3 +33,14 @@ export type OffersProps = {
   title: string;
   href: string;
 };
+
+// Segment Path props
+export type SegmentPathProps = {
+  title: string;
+};
+
+// Portfolio Filter Props
+export type PortfolioFilterProps = {
+  name: string;
+  href: string;
+};
