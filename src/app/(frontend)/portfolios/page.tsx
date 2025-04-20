@@ -4,7 +4,6 @@ import PortfolioCard from '@/components/PortfolioCard';
 import PortfolioFilter from '@/components/PortfolioFilter';
 import SegmentPath from '@/components/SegmentPath';
 import Title from '@/components/Title';
-import { Button } from '@/components/ui/button';
 import { sanityFetch } from '@/sanity/lib/live';
 import { PORTFOLIOS_QUERY } from '@/sanity/lib/queries';
 import { Metadata } from 'next';
@@ -44,11 +43,17 @@ const PortfolioPage = async ({
           Our Portfolio Showcase
         </Title>
         <div className="md:max-w-[70%] md:mx-auto flex flex-col gap-3 text-justify">
-          <Paragraph className="first-letter:text-fs-500 first-letter:bg-brand-purple first-letter:p-1 first-letter:inline-block first-letter:mr-1 first-letter:text-brand-white indent-7">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita
-            quisquam ratione praesentium possimus dicta! Repellat iure nulla
-            sapiente perferendis, accusamus ducimus cumque, esse dolorum
-            reiciendis eius exercitationem a odio molestiae.
+          <Paragraph className=" first-letter:float-left first-letter:mr-5 first-letter:text-fs-600 first-letter:font-bold ">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime
+            blanditiis incidunt quis veniam aperiam, quas officiis voluptates
+            laudantium quia quo beatae recusandae velit nam eaque? Nobis,
+            commodi? Dignissimos voluptas ex sed? In autem dicta suscipit omnis
+            aspernatur hic mollitia corporis provident! Architecto repellendus
+            obcaecati provident necessitatibus perferendis culpa quis eveniet
+            illo consequatur incidunt molestias dolor, laborum unde natus sequi,
+            magni veritatis a exercitationem, quos rerum repellat et commodi!
+            Excepturi magni reiciendis provident atque ut vitae eaque illum
+            alias recusandae pariatur.
           </Paragraph>
           <Paragraph>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit,

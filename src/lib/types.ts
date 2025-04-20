@@ -37,6 +37,7 @@ export type OffersProps = {
 // Segment Path props
 export type SegmentPathProps = {
   title: string;
+  className?: string;
 };
 
 // Portfolio Filter Props
