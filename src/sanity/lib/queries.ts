@@ -30,3 +30,12 @@ export const PORTFOLIO_QUERY = defineQuery(`*[_type == 'portfolio'
   type,
   description
  } `);
+
+export const PRICING_QUERY = defineQuery(`*[_type == 'pricing'
+ && defined(slug.current)][0..3]{
+  name,
+  slug,
+  isPopular,
+  price,
+  features[]
+ } | order(price)`);
