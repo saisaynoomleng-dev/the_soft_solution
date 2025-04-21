@@ -20,6 +20,7 @@ import { FaMeta } from 'react-icons/fa6';
 import { IoCheckmarkSharp, IoClose } from 'react-icons/io5';
 import { CgAdidas } from 'react-icons/cg';
 import { SiNike, SiPuma, SiUnderarmour } from 'react-icons/si';
+import { SlideInEffect, SlideInGroup } from '@/components/ScrollAnimation';
 
 export const metadata: Metadata = {
   title: 'Pricing',
@@ -111,15 +112,20 @@ const PricingPage = async () => {
       </div>
 
       <div className="space-y-5">
-        <Title
-          as="h3"
-          size="sm"
-          className="uppercase"
-        >
-          Trusted by leading digital innovations
-        </Title>
+        <SlideInEffect direction="top">
+          <Title
+            as="h3"
+            size="sm"
+            className="uppercase"
+          >
+            Trusted by leading digital innovations
+          </Title>
+        </SlideInEffect>
 
-        <div className="grid grid-cols-6 px-10 gap-5 place-items-center max-w-[70%] md:max-w-[50%] mx-auto">
+        <SlideInGroup
+          direction="bottom"
+          className="grid grid-cols-6 px-10 gap-5 place-items-center max-w-[70%] md:max-w-[50%] mx-auto"
+        >
           <FaGooglePlay className="size-10 text-brand-gray cursor-pointer" />
           <FaMeta className="size-10 text-brand-gray cursor-pointer" />
           <FaGoogle className="size-10 text-brand-gray cursor-pointer" />
@@ -132,7 +138,7 @@ const PricingPage = async () => {
           <SiNike className="size-10 text-brand-gray cursor-pointer" />
           <SiPuma className="size-10 text-brand-gray cursor-pointer" />
           <SiUnderarmour className="size-10 text-brand-gray cursor-pointer" />
-        </div>
+        </SlideInGroup>
       </div>
     </Bounded>
   );

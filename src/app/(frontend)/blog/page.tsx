@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import Form from 'next/form';
 import { Button } from '@/components/ui/button';
 import SearchResetForm from '@/components/SearchResetForm';
+import { SlideInGroup } from '@/components/ScrollAnimation';
 
 export const metadata: Metadata = {
   title: 'Blogs',
@@ -82,21 +83,34 @@ const BlogPage = async ({
                 {category.title}
               </Link>
             ))}
+            {tags && (
+              <Link
+                href={`/blog`}
+                className="font-semibold tracking-wide inline-block px-5 border-l-2 border-red-600"
+              >
+                Clear Tags
+              </Link>
+            )}
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10">
+        <div className="space-y-5">
           {query && (
             <Paragraph className="col-span-full font-bold text-fs-400">
               Search results for '{query}'
             </Paragraph>
           )}
-          {blogs.map((blog) => (
-            <BlogCard
-              key={blog.slug?.current}
-              {...blog}
-            />
-          ))}
+          <SlideInGroup
+            direction="left"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10"
+          >
+            {blogs.map((blog) => (
+              <BlogCard
+                key={blog.slug?.current}
+                {...blog}
+              />
+            ))}
+          </SlideInGroup>
         </div>
       </div>
     </Bounded>

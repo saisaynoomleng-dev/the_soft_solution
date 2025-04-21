@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Form from 'next/form';
 import { Button } from '@/components/ui/button';
+import { SlideInEffect } from '@/components/ScrollAnimation';
 
 const Contact = () => {
   return (
@@ -13,7 +14,7 @@ const Contact = () => {
       <SegmentPath title="Contact Us" />
 
       <div className="grid md:grid-cols-2 gap-5">
-        <div>
+        <SlideInEffect direction="left">
           <Image
             src="/assets/images/contact.jpg"
             width={600}
@@ -22,9 +23,12 @@ const Contact = () => {
             alt=""
             className="object-cover min-w-full mx-auto rounded-lg"
           />
-        </div>
+        </SlideInEffect>
 
-        <div className="flex flex-col gap-3">
+        <SlideInEffect
+          direction="right"
+          className="flex flex-col gap-3"
+        >
           <Title
             as="h2"
             size="sm"
@@ -119,7 +123,7 @@ const Contact = () => {
               <span className="relative z-20">Send Your Message</span>
             </Button>
           </Form>
-        </div>
+        </SlideInEffect>
       </div>
     </Bounded>
   );
