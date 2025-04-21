@@ -39,3 +39,30 @@ export const PRICING_QUERY = defineQuery(`*[_type == 'pricing'
   price,
   features[]
  } | order(price)`);
+
+export const BLOGS_QUERY = defineQuery(`
+  *[_type == 'blog'
+ && defined(slug.current)
+ && (!defined($search) || category->name match $search || author->name match $search || title match $search)
+ ][0..5]{
+  title,
+  slug,
+  category->{
+    name},
+  author->{
+    name,
+    mainImage{
+      asset->{
+        url
+      },
+      alt
+  },
+  },
+  publishedAt,
+  mainImage{
+    asset->{
+      url
+    },
+    alt
+  },
+ } | order(publishedAt desc)`);

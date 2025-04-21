@@ -1,5 +1,5 @@
 import { CircleDollarSignIcon } from 'lucide-react';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
 export const pricingType = defineType({
   name: 'pricing',
