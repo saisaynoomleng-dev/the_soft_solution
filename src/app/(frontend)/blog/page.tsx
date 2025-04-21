@@ -1,28 +1,22 @@
 import Bounded from '@/components/Bounded';
 import SegmentPath from '@/components/SegmentPath';
 import { Metadata } from 'next';
-import Form from 'next/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { sanityFetch } from '@/sanity/lib/live';
 import { BLOGS_QUERY } from '@/sanity/lib/queries';
 import BlogCard from '@/components/BlogCard';
 import Link from 'next/link';
 import Paragraph from '@/components/Paragraph';
 import clsx from 'clsx';
-import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
+import Form from 'next/form';
+import { Button } from '@/components/ui/button';
+import SearchResetForm from '@/components/SearchResetForm';
 
 export const metadata: Metadata = {
   title: 'Blogs',
 };
 
 export const categories = [
-  { title: 'Mobile Development', value: 'mobile-development' },
+  { title: 'Mobile App Development', value: 'mobile-app-development' },
   { title: 'Web Design', value: 'web-design' },
   { title: 'How to Guide', value: 'how-to-guide' },
   { title: 'White Lable', value: 'white-label' },
@@ -31,12 +25,13 @@ export const categories = [
 const BlogPage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ query?: string; filter?: string; tag?: string }>;
+  searchParams: Promise<{ query?: string; filter?: string; tags?: string }>;
 }) => {
-  const { query, filter, tag } = await searchParams;
+  const { query, filter, tags } = await searchParams;
   const params = {
     search: query || null,
-    filter: filter || null,
+    currentFilter: filter || null,
+    tags: tags || null,
   };
 
   const { data: blogs } = await sanityFetch({
@@ -53,44 +48,23 @@ const BlogPage = async ({
           <Form
             action=""
             scroll={false}
-            className="flex flex-col relative gap-3"
+            id="search-form"
+            className="grid grid-cols-[1fr_auto] gap-2"
           >
-            <label
-              htmlFor="#search"
-              className="sr-only"
-            >
-              Search in blogs
-            </label>
             <input
-              type="text"
               name="query"
-              id="search"
               defaultValue={query}
-              placeholder="Search"
-              className="border border-brand-black indent-1 py-2 focus-visible:ring-[2px] outline-none focus-visible:ring-brand-purple focus-visible:border-none "
+              placeholder="Search..."
+              className="border border-brand-black focus-visible:ring-[2px] focus-visible:ring-brand-purple indent-2 outline-none h-[2.5rem]"
             />
-            <button
+            <Button
               type="submit"
-              className="absolute top-2 right-3"
+              className="h-[2.5rem]"
             >
-              <HiOutlineMagnifyingGlass className="size-5" />
-            </button>
-          </Form>
+              <span className="relative z-20">Search</span>
+            </Button>
 
-          <Form action="">
-            <Select
-              name="filter"
-              value={filter}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="filter" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="lastest">Latest</SelectItem>
-                <SelectItem value="popular">Most Popular</SelectItem>
-              </SelectContent>
-            </Select>
+            {query && <SearchResetForm />}
           </Form>
 
           <div className="flex flex-col gap-y-4">
@@ -99,10 +73,10 @@ const BlogPage = async ({
             </Paragraph>
             {categories.map((category) => (
               <Link
-                href="/"
+                href={`/blog?${new URLSearchParams({ tags: category.value })}`}
                 key={category.value}
                 className={clsx(
-                  'font-semibold tracking-wide inline-block px-5 border-l-2 border-brand-gray',
+                  'font-semibold tracking-wide inline-block px-5 border-l-2 border-brand-purple',
                 )}
               >
                 {category.title}
