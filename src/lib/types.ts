@@ -53,3 +53,13 @@ export type NavLinksProps = {
   className?: string;
   onClick: () => void;
 };
+
+// ScrollInEffect Props
+export type SlideInEffectProps = {
+  children: React.ReactNode;
+  direction: 'left' | 'right' | 'top' | 'bottom';
+  offset?: number;
+  duration?: number;
+  delay?: number;
+  className?: string;
+};
