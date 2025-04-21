@@ -68,6 +68,110 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Blog = {
+  _id: string;
+  _type: 'blog';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'category';
+  };
+  author?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'author';
+  };
+  publishedAt?: string;
+  mainImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  };
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote';
+        listItem?: 'bullet';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+};
+
+export type Category = {
+  _id: string;
+  _type: 'category';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+};
+
+export type Author = {
+  _id: string;
+  _type: 'author';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  bio?: string;
+  mainImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  };
+};
+
 export type Pricing = {
   _id: string;
   _type: 'pricing';
@@ -217,6 +321,9 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | Blog
+  | Category
+  | Author
   | Pricing
   | BlockContent
   | Portfolio
@@ -272,6 +379,31 @@ export type PRICING_QUERYResult = Array<{
     _key: string;
   }> | null;
 }>;
+// Variable: BLOGS_QUERY
+// Query: *[_type == 'blog' && defined(slug.current) && (!defined($search) || category->name match $search || author->name match $search || title match $search) ][0..5]{  title,  slug,  category->{    name},  author->{    name,    mainImage{      asset->{        url      },      alt  },  },  publishedAt,  mainImage{    asset->{      url    },    alt  }, } | order(publishedAt desc)
+export type BLOGS_QUERYResult = Array<{
+  title: string | null;
+  slug: Slug | null;
+  category: {
+    name: string | null;
+  } | null;
+  author: {
+    name: string | null;
+    mainImage: {
+      asset: {
+        url: string | null;
+      } | null;
+      alt: string | null;
+    } | null;
+  } | null;
+  publishedAt: string | null;
+  mainImage: {
+    asset: {
+      url: string | null;
+    } | null;
+    alt: string | null;
+  } | null;
+}>;
 
 // Query TypeMap
 import '@sanity/client';
@@ -280,5 +412,6 @@ declare module '@sanity/client' {
     "*[_type == 'portfolio'\n && defined(slug.current)\n && (!defined($filter) || category match $filter)][0..6]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n } | order(releasedIn)": PORTFOLIOS_QUERYResult;
     "*[_type == 'portfolio'\n && slug.current == $slug][0]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n  type,\n  description\n } ": PORTFOLIO_QUERYResult;
     "*[_type == 'pricing'\n && defined(slug.current)][0..3]{\n  name,\n  slug,\n  isPopular,\n  price,\n  features[]\n } | order(price)": PRICING_QUERYResult;
+    "\n  *[_type == 'blog'\n && defined(slug.current)\n && (!defined($search) || category->name match $search || author->name match $search || title match $search)\n ][0..5]{\n  title,\n  slug,\n  category->{\n    name},\n  author->{\n    name,\n    mainImage{\n      asset->{\n        url\n      },\n      alt\n  },\n  },\n  publishedAt,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n } | order(publishedAt desc)": BLOGS_QUERYResult;
   }
 }
