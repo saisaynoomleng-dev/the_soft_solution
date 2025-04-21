@@ -43,12 +43,15 @@ export const PRICING_QUERY = defineQuery(`*[_type == 'pricing'
 export const BLOGS_QUERY = defineQuery(`
   *[_type == 'blog'
  && defined(slug.current)
- && (!defined($search) || category->name match $search || author->name match $search || title match $search)
+ && (!defined($search) || category->name match $search || author->name match $search || title match $search) 
+ && (!defined($tags) || category->slug.current match $tags)
  ][0..5]{
   title,
   slug,
   category->{
-    name},
+    name,
+    slug
+    },
   author->{
     name,
     mainImage{
@@ -66,3 +69,45 @@ export const BLOGS_QUERY = defineQuery(`
     alt
   },
  } | order(publishedAt desc)`);
+
+export const BLOG_QUERY = defineQuery(`
+  *[_type == 'blog'
+ && slug.current == $slug][0]{
+  title,
+  slug,
+  category->{
+    name,
+    slug
+  },
+  author->{
+    name,
+    mainImage{
+      asset->{
+        url
+      },
+      alt
+    },
+    bio,
+    slug
+  },
+  publishedAt,
+  mainImage{
+    asset->{
+      url
+    },
+    alt
+  },
+  description
+ } `);
+
+export const AUTHOR_QUERY = defineQuery(`
+  *[_type == 'author'
+ && slug.current == $slug][0]{
+  name,
+  bio,
+  mainImage{
+    alt,
+    asset->{url}
+  },
+  slug
+ }`);
