@@ -7,7 +7,9 @@ import SegmentPath from '@/components/SegmentPath';
 import Title from '@/components/Title';
 import { sanityFetch } from '@/sanity/lib/live';
 import { PORTFOLIOS_QUERY } from '@/sanity/lib/queries';
+import clsx from 'clsx';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Portfolios',
@@ -16,9 +18,9 @@ export const metadata: Metadata = {
 const PortfolioPage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; page?: string }>;
 }) => {
-  const category = (await searchParams).category;
+  const { category, page } = await searchParams;
   const params = { filter: category || null };
 
   const filterButtons = [
@@ -28,10 +30,19 @@ const PortfolioPage = async ({
     { name: 'Testing', value: 'testing' },
   ];
 
-  const { data: portfolios } = await sanityFetch({
+  const { data: allPortfolios } = await sanityFetch({
     query: PORTFOLIOS_QUERY,
     params,
   });
+
+  const currentPage = parseInt(page || '1', 10);
+  const portfolioPerPage = 3;
+  const totalPortfolios = allPortfolios.length;
+  const totalPages = Math.ceil(totalPortfolios / portfolioPerPage);
+
+  const startIndex = (currentPage - 1) * portfolioPerPage;
+  const endIndex = startIndex + portfolioPerPage;
+  const portfolios = allPortfolios.slice(startIndex, endIndex);
 
   return (
     <Bounded>
@@ -98,6 +109,31 @@ const PortfolioPage = async ({
             />
           ))}
         </SlideInGroup>
+        <div className="flex gap-3 items-center justify-center w-full">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+            (pageNumber) => (
+              <Link
+                scroll={false}
+                key={pageNumber}
+                href={{
+                  pathname: '/portfolios',
+                  query: {
+                    ...(category && { category }),
+                    page: pageNumber,
+                  },
+                }}
+                className={clsx(
+                  `px-4 py-2 border rounded`,
+                  currentPage === pageNumber
+                    ? 'bg-brand-purple text-brand-white'
+                    : 'bg-white text-brand-purple',
+                )}
+              >
+                {pageNumber}
+              </Link>
+            ),
+          )}
+        </div>
       </div>
     </Bounded>
   );

@@ -45,7 +45,7 @@ export const BLOGS_QUERY = defineQuery(`
  && defined(slug.current)
  && (!defined($search) || category->name match $search || author->name match $search || title match $search) 
  && (!defined($tags) || category->slug.current match $tags)
- ][0..5]{
+ ]{
   title,
   slug,
   category->{

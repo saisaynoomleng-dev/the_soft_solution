@@ -380,7 +380,7 @@ export type PRICING_QUERYResult = Array<{
   }> | null;
 }>;
 // Variable: BLOGS_QUERY
-// Query: *[_type == 'blog' && defined(slug.current) && (!defined($search) || category->name match $search || author->name match $search || title match $search)  && (!defined($tags) || category->slug.current match $tags) ][0..5]{  title,  slug,  category->{    name,    slug    },  author->{    name,    mainImage{      asset->{        url      },      alt  },  },  publishedAt,  mainImage{    asset->{      url    },    alt  }, } | order(publishedAt desc)
+// Query: *[_type == 'blog' && defined(slug.current) && (!defined($search) || category->name match $search || author->name match $search || title match $search)  && (!defined($tags) || category->slug.current match $tags) ]{  title,  slug,  category->{    name,    slug    },  author->{    name,    mainImage{      asset->{        url      },      alt  },  },  publishedAt,  mainImage{    asset->{      url    },    alt  }, } | order(publishedAt desc)
 export type BLOGS_QUERYResult = Array<{
   title: string | null;
   slug: Slug | null;
@@ -488,7 +488,7 @@ declare module '@sanity/client' {
     "*[_type == 'portfolio'\n && defined(slug.current)\n && (!defined($filter) || category match $filter)][0..6]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n } | order(releasedIn)": PORTFOLIOS_QUERYResult;
     "*[_type == 'portfolio'\n && slug.current == $slug][0]{\n  name,\n  slug,\n  category,\n  releasedIn,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n  type,\n  description\n } ": PORTFOLIO_QUERYResult;
     "*[_type == 'pricing'\n && defined(slug.current)][0..3]{\n  name,\n  slug,\n  isPopular,\n  price,\n  features[]\n } | order(price)": PRICING_QUERYResult;
-    "\n  *[_type == 'blog'\n && defined(slug.current)\n && (!defined($search) || category->name match $search || author->name match $search || title match $search) \n && (!defined($tags) || category->slug.current match $tags)\n ][0..5]{\n  title,\n  slug,\n  category->{\n    name,\n    slug\n    },\n  author->{\n    name,\n    mainImage{\n      asset->{\n        url\n      },\n      alt\n  },\n  },\n  publishedAt,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n } | order(publishedAt desc)": BLOGS_QUERYResult;
+    "\n  *[_type == 'blog'\n && defined(slug.current)\n && (!defined($search) || category->name match $search || author->name match $search || title match $search) \n && (!defined($tags) || category->slug.current match $tags)\n ]{\n  title,\n  slug,\n  category->{\n    name,\n    slug\n    },\n  author->{\n    name,\n    mainImage{\n      asset->{\n        url\n      },\n      alt\n  },\n  },\n  publishedAt,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n } | order(publishedAt desc)": BLOGS_QUERYResult;
     "\n  *[_type == 'blog'\n && slug.current == $slug][0]{\n  title,\n  slug,\n  category->{\n    name,\n    slug\n  },\n  author->{\n    name,\n    mainImage{\n      asset->{\n        url\n      },\n      alt\n    },\n    bio,\n    slug\n  },\n  publishedAt,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n  description\n } ": BLOG_QUERYResult;
     "\n  *[_type == 'author'\n && slug.current == $slug][0]{\n  name,\n  bio,\n  mainImage{\n    alt,\n    asset->{url}\n  },\n  slug\n }": AUTHOR_QUERYResult;
   }
