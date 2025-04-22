@@ -1,4 +1,8 @@
-import { CircleDollarSignIcon, LayoutPanelLeftIcon } from 'lucide-react';
+import {
+  CircleDollarSignIcon,
+  LayoutPanelLeftIcon,
+  UserIcon,
+} from 'lucide-react';
 import { BiDetail } from 'react-icons/bi';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { MdCategory } from 'react-icons/md';
@@ -19,4 +23,5 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       S.documentTypeListItem('author').title('Authors').icon(FaRegCircleUser),
       S.documentTypeListItem('category').title('Categories').icon(MdCategory),
+      S.documentTypeListItem('teamMember').title('Team Members').icon(UserIcon),
     ]);

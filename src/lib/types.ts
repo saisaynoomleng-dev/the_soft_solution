@@ -71,3 +71,10 @@ export type FadeInEffectProps = {
   duration?: number;
   delay?: number;
 };
+
+// Service Card
+export type ServiceCardProps = {
+  className?: string;
+  title: string;
+  text: string;
+};

@@ -68,6 +68,30 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type TeamMember = {
+  _id: string;
+  _type: 'teamMember';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  position?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  };
+};
+
 export type Blog = {
   _id: string;
   _type: 'blog';
@@ -321,6 +345,7 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | TeamMember
   | Blog
   | Category
   | Author
@@ -480,6 +505,18 @@ export type AUTHOR_QUERYResult = {
   } | null;
   slug: Slug | null;
 } | null;
+// Variable: TEAM_MEMBER_QUERY
+// Query: *[_type == 'teamMember' && defined(slug.current)]{  name,  position,  image{    alt,    asset->{url}  } }
+export type TEAM_MEMBER_QUERYResult = Array<{
+  name: string | null;
+  position: string | null;
+  image: {
+    alt: string | null;
+    asset: {
+      url: string | null;
+    } | null;
+  } | null;
+}>;
 
 // Query TypeMap
 import '@sanity/client';
@@ -491,5 +528,6 @@ declare module '@sanity/client' {
     "\n  *[_type == 'blog'\n && defined(slug.current)\n && (!defined($search) || category->name match $search || author->name match $search || title match $search) \n && (!defined($tags) || category->slug.current match $tags)\n ]{\n  title,\n  slug,\n  category->{\n    name,\n    slug\n    },\n  author->{\n    name,\n    mainImage{\n      asset->{\n        url\n      },\n      alt\n  },\n  },\n  publishedAt,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n } | order(publishedAt desc)": BLOGS_QUERYResult;
     "\n  *[_type == 'blog'\n && slug.current == $slug][0]{\n  title,\n  slug,\n  category->{\n    name,\n    slug\n  },\n  author->{\n    name,\n    mainImage{\n      asset->{\n        url\n      },\n      alt\n    },\n    bio,\n    slug\n  },\n  publishedAt,\n  mainImage{\n    asset->{\n      url\n    },\n    alt\n  },\n  description\n } ": BLOG_QUERYResult;
     "\n  *[_type == 'author'\n && slug.current == $slug][0]{\n  name,\n  bio,\n  mainImage{\n    alt,\n    asset->{url}\n  },\n  slug\n }": AUTHOR_QUERYResult;
+    "\n  *[_type == 'teamMember'\n && defined(slug.current)]{\n  name,\n  position,\n  image{\n    alt,\n    asset->{url}\n  }\n }": TEAM_MEMBER_QUERYResult;
   }
 }
