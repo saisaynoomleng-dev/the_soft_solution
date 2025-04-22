@@ -3,7 +3,7 @@
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SlideInEffectProps } from '@/lib/types';
+import { FadeInEffectProps, SlideInEffectProps } from '@/lib/types';
 import { useRef } from 'react';
 import clsx from 'clsx';
 
@@ -88,6 +88,42 @@ export const SlideInGroup = ({
       if (containerRef.current?.children) {
         gsap.from(Array.from(containerRef.current.children), vars);
       }
+    },
+    { scope: containerRef },
+  );
+  return (
+    <div
+      ref={containerRef}
+      className={clsx(className)}
+    >
+      {children}
+    </div>
+  );
+};
+
+export const FadeInEffect = ({
+  children,
+  className,
+  duration = 1,
+  delay = 0,
+}: FadeInEffectProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const vars: gsap.TweenVars = {
+        opacity: 0,
+        duration,
+        delay,
+        ease: 'power1',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      };
+
+      gsap.from(containerRef.current, vars);
     },
     { scope: containerRef },
   );
