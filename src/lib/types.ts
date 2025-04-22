@@ -63,3 +63,11 @@ export type SlideInEffectProps = {
   delay?: number;
   className?: string;
 };
+
+// FadeInEffect Props
+export type FadeInEffectProps = {
+  children: React.ReactNode;
+  className?: string;
+  duration?: number;
+  delay?: number;
+};
