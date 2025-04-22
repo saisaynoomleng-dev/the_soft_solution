@@ -111,3 +111,14 @@ export const AUTHOR_QUERY = defineQuery(`
   },
   slug
  }`);
+
+export const TEAM_MEMBER_QUERY = defineQuery(`
+  *[_type == 'teamMember'
+ && defined(slug.current)]{
+  name,
+  position,
+  image{
+    alt,
+    asset->{url}
+  }
+ }`);
